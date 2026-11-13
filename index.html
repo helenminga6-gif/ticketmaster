@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function(){
   render();
 });
 // Also run immediately in case DOM already loaded
-if(document.readyState!=='loading'){ render(); }
+// render once via DOMContentLoaded only
 </script>E html>
 <html lang="en">
 <head>
@@ -223,15 +223,7 @@ footer{background:#000;padding:30px;text-align:center;color:#888;font-size:13px;
 <div class="step" style="background:#e8f5e9"><b>Need Help?</b> Email us - we will guide you step by step.</div>
 </div>
 
-<div class="tabs">
-<button class="active" onclick="filterCat('all',this)">All Events</button>
-<button onclick="filterCat('concert',this)">🎤 USA Shows</button>
-<button onclick="filterCat('nba',this)">🏀 NBA Basketball</button>
-<button onclick="filterCat('sports',this)">🏈 Sports</button>
-<button onclick="filterCat('uk',this)">🇬🇧 UK Shows</button>
-<button onclick="filterCat('canada',this)">🇨🇦 Canada Shows</button>
-<button onclick="filterCat('football',this)">⚽ Football / Soccer</button>
-</div>
+
 
 <div class="section"><h2>🔥 Trending in USA - 20% OFF</h2><div class="grid" id="eventsGrid"></div></div>
 
