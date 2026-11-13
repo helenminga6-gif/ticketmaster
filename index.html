@@ -101,6 +101,159 @@ footer{background:#000;padding:30px;text-align:center;color:#888;font-size:13px;
 <footer>TicketMaster Resale - USA, UK & Canada Shows & NBA Tickets<br>🔥 ALL TICKETS 20% BELOW FACE VALUE<br>Bitcoin Wallet: bc1q8kk57dcw2uxk5crgzr0654m7c4l0yjwgxtvaxs<br>© 2026 All Rights Reserved | Resale Marketplace</footer>
 
 <script>
+let currentCat='all';
+function filterCat(cat, btn){
+  currentCat=cat;
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  render();
+}
+function render(){
+  const grid=document.getElementById('grid');
+  if(!grid){ console.log('grid not found'); return; }
+  const list = currentCat==='all' ? events : events.filter(x=>x.cat===currentCat);
+  console.log('Rendering', list.length, 'for', currentCat);
+  if(list.length===0){
+    grid.innerHTML='<p style="text-align:center;padding:40px">No events found for this category. Showing all events...</p>';
+    // Fallback show all
+    const all = events.map(cardHTML).join('');
+    grid.innerHTML = all;
+    return;
+  }
+  grid.innerHTML = list.map(cardHTML).join('');
+}
+function cardHTML(ev){
+  return `<div class="card">
+    <div style="position:relative"><img src="${ev.img}" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0"><span style="position:absolute;top:10px;left:10px;background:#e50914;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700">${ev.tag} • 20% OFF</span></div>
+    <div style="padding:16px">
+      <h3 style="margin:0 0 6px;font-size:17px">${ev.title}</h3>
+      <p style="color:#666;font-size:13px;margin:0 0 4px">📍 ${ev.venue}</p>
+      <p style="color:#666;font-size:13px;margin:0 0 12px">📅 ${ev.date}</p>
+      <div style="display:flex;gap:10px;align-items:center"><span style="text-decoration:line-through;color:#999">$${ev.face}</span><span style="font-size:22px;font-weight:800;color:#e50914">$${ev.sale}</span><span style="background:#e8f5e9;color:#2e7d32;padding:3px 8px;border-radius:20px;font-size:12px;font-weight:700">Save $${ev.save}</span></div>
+      <button onclick="buyTicket('${ev.title.replace(/'/g,"")} ', ${ev.sale})" style="width:100%;margin-top:14px;background:#e50914;color:#fff;border:none;padding:12px;border-radius:8px;font-weight:700;cursor:pointer">Buy Now - Pay With Bitcoin</button>
+    </div>
+  </div>`;
+}
+function buyTicket(title, price){
+  document.getElementById('buyTitle').innerText = title;
+  document.getElementById('buyPrice').innerText = '$'+price;
+  // Save for checkout
+  window.selectedTitle = title;
+  window.selectedPrice = price;
+  const m = document.getElementById('modal');
+  if(m) m.style.display='flex';
+  else alert('Buy: '+title+' - $'+price+' - Pay BTC to bc1q8kk57dcw2uxk5crgzr0654m7c4l0yjwgxtvaxs');
+}
+// Run on load
+document.addEventListener('DOMContentLoaded', function(){
+  console.log('Total events:', events.length);
+  render();
+});
+// Also run immediately in case DOM already loaded
+if(document.readyState!=='loading'){ render(); }
+</script>E html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TicketMaster - USA, UK & Canada Shows & NBA - 20% Below Face Value</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0f0f1a;color:#fff}
+header{background:#026cdf;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{font-size:24px;font-weight:900}.logo span{color:#ffcc00}
+nav a{color:#fff;text-decoration:none;margin:0 8px;font-size:13px}
+.hero{background:linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),url('https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1200');background-size:cover;padding:50px 20px;text-align:center}
+.hero h1{font-size:36px;line-height:1.2}.hero h1 span{color:#ffcc00}
+.discount-banner{background:#ffcc00;color:#000;font-weight:900;padding:10px;text-align:center;font-size:16px}
+.search{max-width:600px;margin:20px auto;display:flex;background:#fff;border-radius:30px;overflow:hidden}
+.search input{flex:1;padding:14px;border:0;outline:0}.search button{background:#ffcc00;border:0;padding:0 25px;font-weight:700;cursor:pointer}
+.tabs{display:flex;gap:10px;justify-content:center;padding:20px;flex-wrap:wrap}
+.tabs button{padding:10px 20px;border-radius:20px;border:1px solid #444;background:#1e1e2e;color:#fff;cursor:pointer}
+.tabs button.active{background:#026cdf}
+.section{max-width:1100px;margin:auto;padding:0 15px 40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.card{background:#1e1e2e;border-radius:12px;overflow:hidden;position:relative}
+.card img{width:100%;height:180px;object-fit:cover}
+.off-badge{position:absolute;top:10px;right:10px;background:#e60023;color:#fff;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:900}
+.card-body{padding:15px}.badge{background:#ffcc00;color:#000;font-size:11px;padding:3px 8px;border-radius:10px;font-weight:700}
+.card-body h3{margin:8px 0;font-size:18px}.card-body p{color:#aaa;font-size:13px;margin:3px 0}
+.face{color:#888;text-decoration:line-through;font-size:13px}
+.sale{color:#00e676;font-weight:900;font-size:22px}
+.save{color:#ffcc00;font-size:12px;font-weight:700}
+.btn{width:100%;padding:12px;background:#026cdf;color:#fff;border:0;border-radius:8px;font-weight:700;cursor:pointer;margin-top:10px}
+.btc-box{background:#1a2a1a;border:2px solid #f7931a;border-radius:12px;padding:20px;margin:20px auto;max-width:850px;text-align:center}
+.btc-box h3{color:#f7931a}.wallet{background:#000;padding:12px;border-radius:8px;word-break:break-all;margin:10px 0;font-size:13px}
+.copy{padding:10px 20px;background:#f7931a;border:0;border-radius:8px;font-weight:700;cursor:pointer}
+.guide{background:#fff;color:#000;border-radius:12px;padding:20px;max-width:850px;margin:20px auto}
+.guide h3{margin-bottom:12px}.step{background:#f5f5f5;padding:12px;border-radius:8px;margin:8px 0;font-size:14px;line-height:1.5}
+
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);justify-content:center;align-items:center;padding:15px;z-index:99}
+.modal-content{background:#fff;color:#000;border-radius:12px;padding:22px;max-width:420px;width:100%;max-height:90vh;overflow:auto}
+.modal-content input,.modal-content select{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px}
+.close{float:right;cursor:pointer;font-size:22px}
+footer{background:#000;padding:30px;text-align:center;color:#888;font-size:13px;line-height:1.6}
+</style>
+</head>
+<body>
+<header><div class="logo">Ticket<span>Master</span></div><nav><a href="#">Concerts</a><a href="#">NBA</a><a href="#">Sports</a></nav><div>🇺🇸 USA Resale</div></header>
+<div class="discount-banner">🔥 FLASH SALE: ALL TICKETS 20% BELOW FACE VALUE - LIMITED TIME ONLY 🔥</div>
+
+<div class="hero">
+<h1>USA, UK & Canada Shows & NBA Tickets<br><span>20% BELOW Face Value</span></h1>
+<p>Concerts • Basketball • Sports - Instant Delivery • Secure Bitcoin Payment</p>
+<div class="search"><input id="searchInput" placeholder="Search Taylor Swift, Lakers, Drake..." onkeyup="searchEvents()"><button onclick="searchEvents()">Search</button></div>
+<p>🔒 Verified Tickets | ⚡ Instant E-Ticket | ₿ Pay with Bitcoin</p>
+</div>
+
+<div class="btc-box">
+<h3>₿ Pay With Bitcoin - Fast & Secure</h3>
+<p>Send BTC to this wallet and enter your Transaction ID at checkout</p>
+<div class="wallet">bc1q8kk57dcw2uxk5crgzr0654m7c4l0yjwgxtvaxs</div>
+<button class="copy" onclick="copyWallet()">📋 Copy Wallet Address</button>
+<p style="margin-top:10px;font-size:12px;color:#aaa">Pay the SALE price in BTC • Send exact amount • Tickets sent after 1 confirmation</p>
+</div>
+
+<div class="guide">
+<h3>How To Pay With Bitcoin (Even If You Have Never Used BTC Before)</h3>
+<div class="step"><b>Step 1:</b> Open your Cash App, Coinbase, Binance, or any Bitcoin wallet.</div>
+<div class="step"><b>Step 2:</b> Tap Send / Withdraw, and paste our wallet address: <b>bc1q8kk57dcw2uxk5crgzr0654m7c4l0yjwgxtvaxs</b></div>
+<div class="step"><b>Step 3:</b> Enter the SALE amount in dollars - your app will automatically convert it to BTC. Send the payment.</div>
+<div class="step"><b>Step 4:</b> Copy your Transaction ID (TXID), paste it at checkout, and click Confirm. We will send your e-ticket to your email within 15-30 minutes after 1 confirmation.</div>
+<div class="step" style="background:#e8f5e9"><b>Need Help?</b> Email us - we will guide you step by step.</div>
+</div>
+
+<div class="tabs">
+<button class="active" onclick="filterCat('all',this)">All Events</button>
+<button onclick="filterCat('concert',this)">🎤 USA Shows</button>
+<button onclick="filterCat('nba',this)">🏀 NBA Basketball</button>
+<button onclick="filterCat('sports',this)">🏈 Sports</button>
+<button onclick="filterCat('uk',this)">🇬🇧 UK Shows</button>
+<button onclick="filterCat('canada',this)">🇨🇦 Canada Shows</button>
+<button onclick="filterCat('football',this)">⚽ Football / Soccer</button>
+</div>
+
+<div class="section"><h2>🔥 Trending in USA - 20% OFF</h2><div class="grid" id="eventsGrid"></div></div>
+
+
+
+<div id="checkoutModal" class="modal"><div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<h2 id="modalTitle">Checkout</h2>
+<p id="modalEvent" style="color:#666"></p>
+<label>Full Name</label><input id="custName" placeholder="John Doe">
+<label>Email (Ticket Delivery)</label><input id="custEmail" placeholder="you@email.com">
+<label>Quantity</label><select id="qty"><option value="1">1 Ticket</option><option value="2">2 Tickets</option><option value="3">3 Tickets</option><option value="4">4 Tickets</option></select>
+<label>Payment Method</label><select id="payMethod" onchange="togglePay()"><option value="btc">₿ Bitcoin (Recommended - 20% OFF)</option><option value="card">💳 Card</option></select>
+<div id="btcPay"><p style="background:#fff3d6;padding:10px;border-radius:8px;font-size:13px">Send BTC to:<br><b>bc1q8kk57dcw2uxk5crgzr0654m7c4l0yjwgxtvaxs</b><br>Amount: <b id="btcAmount">$0</b> worth of BTC (SALE PRICE)</p><label>Bitcoin Transaction ID (TXID)</label><input id="txid" placeholder="Paste your TXID after sending"></div>
+<div id="cardPay" style="display:none"><input placeholder="Card Number"><input placeholder="MM / YY &nbsp; CVC"></div>
+<button class="btn" onclick="confirmOrder()">Confirm Order - Send Tickets</button>
+<p id="orderMsg" style="margin-top:10px;font-size:13px;color:green"></p>
+</div></div>
+
+<footer>TicketMaster Resale - USA, UK & Canada Shows & NBA Tickets<br>🔥 ALL TICKETS 20% BELOW FACE VALUE<br>Bitcoin Wallet: bc1q8kk57dcw2uxk5crgzr0654m7c4l0yjwgxtvaxs<br>© 2026 All Rights Reserved | Resale Marketplace</footer>
+
+<script>
 const events=[
 {cat:'concert',title:'Taylor Swift - Eras Tour',venue:'SoFi Stadium, Los Angeles, CA',date:'Dec 12, 2026 • 7:00 PM',face:250,sale:200,save:50,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600',tag:'CONCERT'},
 {cat:'concert',title:'Beyoncé - Cowboy Carter Tour',venue:'MetLife Stadium, New Jersey, NY',date:'Dec 19, 2026 • 8:00 PM',face:275,sale:220,save:55,img:'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600',tag:'CONCERT'},
