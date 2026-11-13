@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TicketMaster - USA Shows & NBA - 20% Below Face Value</title>
+<title>TicketMaster - USA, UK & Canada Shows & NBA - 20% Below Face Value</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#0f0f1a;color:#fff}
@@ -47,7 +47,7 @@ footer{background:#000;padding:30px;text-align:center;color:#888;font-size:13px;
 <div class="discount-banner">🔥 FLASH SALE: ALL TICKETS 20% BELOW FACE VALUE - LIMITED TIME ONLY 🔥</div>
 
 <div class="hero">
-<h1>USA Shows & NBA Tickets<br><span>20% BELOW Face Value</span></h1>
+<h1>USA, UK & Canada Shows & NBA Tickets<br><span>20% BELOW Face Value</span></h1>
 <p>Concerts • Basketball • Sports - Instant Delivery • Secure Bitcoin Payment</p>
 <div class="search"><input id="searchInput" placeholder="Search Taylor Swift, Lakers, Drake..." onkeyup="searchEvents()"><button onclick="searchEvents()">Search</button></div>
 <p>🔒 Verified Tickets | ⚡ Instant E-Ticket | ₿ Pay with Bitcoin</p>
@@ -75,6 +75,8 @@ footer{background:#000;padding:30px;text-align:center;color:#888;font-size:13px;
 <button onclick="filterCat('concert',this)">🎤 USA Shows</button>
 <button onclick="filterCat('nba',this)">🏀 NBA Basketball</button>
 <button onclick="filterCat('sports',this)">🏈 Sports</button>
+<button onclick="filterCat('uk',this)">🇬🇧 UK Shows</button>
+<button onclick="filterCat('canada',this)">🇨🇦 Canada Shows</button>
 </div>
 
 <div class="section"><h2>🔥 Trending in USA - 20% OFF</h2><div class="grid" id="eventsGrid"></div></div>
@@ -95,7 +97,7 @@ footer{background:#000;padding:30px;text-align:center;color:#888;font-size:13px;
 <p id="orderMsg" style="margin-top:10px;font-size:13px;color:green"></p>
 </div></div>
 
-<footer>TicketMaster Resale - USA Shows & NBA Tickets<br>🔥 ALL TICKETS 20% BELOW FACE VALUE<br>Bitcoin Wallet: bc1q8kk57dcw2uxk5crgzr0654m7c4l0yjwgxtvaxs<br>© 2026 All Rights Reserved | Resale Marketplace</footer>
+<footer>TicketMaster Resale - USA, UK & Canada Shows & NBA Tickets<br>🔥 ALL TICKETS 20% BELOW FACE VALUE<br>Bitcoin Wallet: bc1q8kk57dcw2uxk5crgzr0654m7c4l0yjwgxtvaxs<br>© 2026 All Rights Reserved | Resale Marketplace</footer>
 
 <script>
 const events=[
@@ -116,11 +118,23 @@ function render(list){document.getElementById('eventsGrid').innerHTML=list.map((
 render(events);
 function filterCat(c,btn){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render(c==='all'?events:events.filter(e=>e.cat===c))}
 function searchEvents(){let q=document.getElementById('searchInput').value.toLowerCase();render(events.filter(e=>e.title.toLowerCase().includes(q)||e.venue.toLowerCase().includes(q)))}
-function openModal(idx){let e=events[idx];document.getElementById('modalTitle').innerText='Checkout - '+e.title;document.getElementById('modalEvent').innerText=e.venue+' • '+e.date+' • Face $'+e.face+' • SALE $'+e.sale+' (You save $'+e.save+')';document.getElementById('btcAmount').innerText='$'+e.sale;document.getElementById('checkoutModal').style.display='flex'}
-function closeModal(){document.getElementById('checkoutModal').style.display='none'}
-function togglePay(){let m=document.getElementById('payMethod').value;document.getElementById('btcPay').style.display=m==='btc'?'block':'none';document.getElementById('cardPay').style.display=m==='card'?'block':'none'}
-function copyWallet(){navigator.clipboard.writeText('bc1q8kk57dcw2uxk5crgzr0654m7c4l0yjwgxtvaxs');alert('Bitcoin wallet copied!')}
-function confirmOrder(){let n=document.getElementById('custName').value;if(!n){alert('Enter your name');return}document.getElementById('orderMsg').innerText='✅ Order received! We will verify your Bitcoin payment and send your e-tickets to your email in 15-30 mins.'}
-</script>
-</body>
-</html>
+function openModal(idx){let e=events[idx,
+{cat:'uk',title:'Harry Styles - Love On Tour',venue:'Wembley Stadium, London, UK',date:'Apr 10, 2027 • 7:00 PM',face:210,sale:168,save:42,img:'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600',tag:'UK'},
+{cat:'uk',title:'Adele - Live in London',venue:'The O2 Arena, London, UK',date:'Apr 17, 2027 • 8:00 PM',face:300,sale:240,save:60,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600',tag:'UK'},
+{cat:'uk',title:'Ed Sheeran - UK Tour',venue:'Wembley Stadium, London, UK',date:'Apr 24, 2027 • 7:00 PM',face:185,sale:148,save:37,img:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600',tag:'UK'},
+{cat:'uk',title:'Coldplay - UK Leg',venue:'Wembley Stadium, London, UK',date:'May 01, 2027 • 7:00 PM',face:175,sale:140,save:35,img:'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600',tag:'UK'},
+{cat:'uk',title:'Dua Lipa - Radical Optimism Tour',venue:'The O2 Arena, London, UK',date:'May 08, 2027 • 8:00 PM',face:165,sale:132,save:33,img:'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600',tag:'UK'},
+{cat:'uk',title:'Elton John - Farewell Tour',venue:'AO Arena, Manchester, UK',date:'May 15, 2027 • 7:30 PM',face:260,sale:208,save:52,img:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600',tag:'UK'},
+{cat:'uk',title:'Arctic Monkeys - Live',venue:'Utilita Arena, Sheffield, UK',date:'May 22, 2027 • 7:00 PM',face:140,sale:112,save:28,img:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600',tag:'UK'},
+{cat:'uk',title:'Sam Smith - Gloria Tour',venue:'Utilita Arena, Birmingham, UK',date:'May 29, 2027 • 8:00 PM',face:150,sale:120,save:30,img:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600',tag:'UK'},
+{cat:'canada',title:'Drake - Homecoming Toronto',venue:'Scotiabank Arena, Toronto, Canada',date:'Apr 12, 2027 • 8:00 PM',face:220,sale:176,save:44,img:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600',tag:'CANADA'},
+{cat:'canada',title:'Justin Bieber - Toronto Night',venue:'Rogers Centre, Toronto, Canada',date:'Apr 19, 2027 • 7:30 PM',face:195,sale:156,save:39,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600',tag:'CANADA'},
+{cat:'canada',title:'The Weeknd - Vancouver Show',venue:'Rogers Arena, Vancouver, Canada',date:'Apr 26, 2027 • 8:00 PM',face:200,sale:160,save:40,img:'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600',tag:'CANADA'},
+{cat:'canada',title:'Celine Dion - Live in Montreal',venue:'Bell Centre, Montreal, Canada',date:'May 03, 2027 • 8:00 PM',face:280,sale:224,save:56,img:'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=600',tag:'CANADA'},
+{cat:'canada',title:'Shawn Mendes - Toronto',venue:'Scotiabank Arena, Toronto, Canada',date:'May 10, 2027 • 7:30 PM',face:145,sale:116,save:29,img:'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600',tag:'CANADA'},
+{cat:'canada',title:'Tate McRae - Think Later Tour',venue:'Rogers Arena, Vancouver, Canada',date:'May 17, 2027 • 7:00 PM',face:125,sale:100,save:25,img:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600',tag:'CANADA'},
+{cat:'canada',title:'Michael Buble - Montreal Night',venue:'Bell Centre, Montreal, Canada',date:'May 24, 2027 • 8:00 PM',face:170,sale:136,save:34,img:'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600',tag:'CANADA'},
+{cat:'canada',title:'Avril Lavigne - Greatest Hits',venue:'Budweiser Stage, Toronto, Canada',date:'May 31, 2027 • 7:30 PM',face:115,sale:92,save:23,img:'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600',tag:'CANADA'},
+{cat:'concert',title:'Usher - R&B Residency',venue:'Park MGM, Las Vegas, NV, USA',date:'Jun 05, 2027 • 8:00 PM',face:240,sale:192,save:48,img:'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600',tag:'CONCERT'},
+{cat:'concert',title:'Chris Brown - 11:11 Tour',venue:'Crypto.com Arena, Los Angeles, CA, USA',date:'Jun 12, 2027 • 8:00 PM',face:180,sale:144,save:36,img:'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600',tag:'CONCERT'}
+];
