@@ -113,8 +113,9 @@ const events=[
 {cat:'nba',title:'Warriors vs Mavericks',venue:'Chase Center, San Francisco, CA',date:'Jan 03, 2027 • 5:30 PM',face:170,sale:136,save:34,img:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600',tag:'NBA'},
 {cat:'nba',title:'Heat vs Nets',venue:'Kaseya Center, Miami, FL',date:'Jan 10, 2027 • 7:00 PM',face:110,sale:88,save:22,img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600',tag:'NBA'},
 {cat:'nba',title:'Bucks vs 76ers',venue:'Fiserv Forum, Milwaukee, WI',date:'Jan 17, 2027 • 7:00 PM',face:120,sale:96,save:24,img:'https://images.unsplash.com/photo-1515523110800-9415d13b84a8?w=600',tag:'NBA'},
-{cat:'sports',title:'Super Bowl LXI',venue:'SoFi Stadium, Los Angeles, CA',date:'Feb 14, 2027 • 3:30 PM',face:1125,sale:900,save:225,img:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600',tag:'NFL'},
+{cat:'sports',title:'Super Bowl LXI',venue:'SoFi Stadium, Los Angeles, CA',date:'Feb 14, 2027 • 3:30 PM',face:1125,sale:900,save:225,img:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600',tag:'NFL'}
 ];
+
 function render(list){document.getElementById('eventsGrid').innerHTML=list.map((e)=>`<div class="card"><span class="off-badge">-20% OFF</span><img src="${e.img}"><div class="card-body"><span class="badge">${e.tag}</span><h3>${e.title}</h3><p>📍 ${e.venue}</p><p>📅 ${e.date}</p><div class="face">Face Value: $${e.face}</div><div class="sale">$${e.sale}</div><div class="save">You SAVE $${e.save} (20% OFF)</div><button class="btn" onclick="openModal(${events.indexOf(e)})">Buy Tickets - Pay with BTC</button></div></div>`).join('')}
 render(events);
 function filterCat(c,btn){document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render(c==='all'?events:events.filter(e=>e.cat===c))}
